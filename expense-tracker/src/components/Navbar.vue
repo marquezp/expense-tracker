@@ -7,6 +7,7 @@ import { RouterLink } from "vue-router";
 const router = useRouter();
 
 const isLoggedIn = ref(false);
+let authListener = null;
 
 onMounted(async () => {
   const {
