@@ -1,1 +1,1 @@
-# An app for tracking expenses
+# A web-app for tracking expenses
