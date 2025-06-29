@@ -4,12 +4,10 @@ import { useRouter } from "vue-router";
 import { supabase } from "../utils/supabase";
 
 const router = useRouter();
-const today = new Date().toISOString().slice(0, 10);
 const form = reactive({
   title: "",
   price: "",
   category: "",
-  date: today,
 });
 
 const addExpense = async () => {
@@ -23,16 +21,10 @@ const addExpense = async () => {
     title: form.title,
     price: parseFloat(form.price),
     category: form.category,
-    date: form.date,
     user_id: userId,
   };
 
-  if (
-    !newExpense.title ||
-    !newExpense.price ||
-    !newExpense.category ||
-    !newExpense.date
-  ) {
+  if (!newExpense.title || !newExpense.price || !newExpense.category) {
     console.error("All fields are required.");
     return;
   }
@@ -87,29 +79,25 @@ const addExpense = async () => {
         <label for="category" class="block text-sm font-medium text-gray-700"
           >Category</label
         >
-        <input
+        <select
           v-model="form.category"
-          type="text"
           id="category"
           required
           class="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-4">
-        <label for="date" class="block text-sm font-medium text-gray-700"
-          >Date</label
         >
-        <input
-          v-model="form.date"
-          type="date"
-          id="date"
-          required
-          class="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-        />
+          <option value="" disabled>Select category</option>
+          <option value="Groceries">Groceries</option>
+          <option value="Food">Food</option>
+          <option value="Living">Living</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Travel">Travel</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
+      <!-- Date field removed -->
       <button
         type="submit"
-        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
       >
         Add Expense
       </button>
