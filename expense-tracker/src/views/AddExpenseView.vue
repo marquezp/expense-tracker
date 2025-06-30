@@ -7,6 +7,7 @@ import { useToast } from "vue-toastification";
 
 const toast = useToast();
 const router = useRouter();
+const successEmojis = ["🤩", "🎉", "✅"];
 
 // Reactive form state
 const form = reactive({
@@ -53,11 +54,15 @@ const addExpense = async () => {
       .from("expenses")
       .insert([newExpense]);
     if (error) throw error;
+    toast.success(
+      `Expense added successfully ${
+        successEmojis[Math.floor(Math.random() * successEmojis.length)]
+      }`
+    );
     router.push("/expenses");
-    toast.success("Expense added successfully!");
   } catch (error) {
     console.error("Error adding expense:", error);
-    toast.error("Error adding expense.");
+    toast.error("Error adding expense 😵");
     form.isLoading = false;
   }
 };

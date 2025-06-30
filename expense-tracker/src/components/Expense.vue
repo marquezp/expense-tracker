@@ -31,13 +31,8 @@ function getCategoryBg(category) {
 // API call to delete an expense
 const handleDelete = async () => {
   try {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this expense?"
-    );
-    if (confirm) {
-      await supabase.from("expenses").delete().eq("id", props.expense.id);
-      emit("deleted", props.expense.id); // Emit event after deletion
-    }
+    await supabase.from("expenses").delete().eq("id", props.expense.id);
+    emit("deleted", props.expense.id); // Emit event after deletion
   } catch (error) {
     console.error("Failed to delete expense:", error);
   }
@@ -99,7 +94,9 @@ const handleDelete = async () => {
         class="flex justify-center w-full text-blue-500 underline text-sm focus:outline-none"
         @click="showDescription = true"
       >
-        <ChevronDownIcon class="w-5 h-5 text-neutral-700" />
+        <ChevronDownIcon
+          class="w-5 h-5 text-neutral-700 hover:text-amber-900 hover:scale-120 transition-transform duration-200"
+        />
       </button>
       <!-- Description Content with Transition -->
       <div
@@ -115,7 +112,9 @@ const handleDelete = async () => {
           class="flex justify-center w-full text-blue-500 underline text-xs focus:outline-none"
           @click="showDescription = false"
         >
-          <ChevronUpIcon class="w-5 h-5 text-neutral-400" />
+          <ChevronUpIcon
+            class="w-5 h-5 text-neutral-700 hover:text-amber-900 hover:scale-120 transition-transform duration-200"
+          />
         </button>
       </div>
     </div>

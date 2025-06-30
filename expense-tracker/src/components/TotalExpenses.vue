@@ -4,6 +4,8 @@ import DoughnutChart from "./DoughnutChart.vue";
 
 const props = defineProps({
   expenses: Array,
+  month: Number,
+  year: Number,
 });
 
 // Colors for the doughnut to display
@@ -50,6 +52,8 @@ const chartColors = computed(() =>
       :labels="chartLabels"
       :data="chartData"
       :colors="chartColors"
+      :month="month"
+      :year="year"
     />
   </div>
 </template>

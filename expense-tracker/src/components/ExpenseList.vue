@@ -35,10 +35,10 @@ const sortedExpenses = computed(() => {
 
 <template>
   <!-- Loading spinner-->
-  <div v-if="isLoading" class="text-center mt-54"><PulseLoader /></div>
+  <div v-if="isLoading" class="text-center mt-18"><PulseLoader /></div>
 
   <!-- Sort Controls -->
-  <div v-else>
+  <div v-else-if="expenses.length > 0">
     <div class="mb-4 flex gap-2 items-center">
       <label for="sort" class="text-sm font-medium">Sort by:</label>
       <select v-model="sortBy" id="sort" class="border rounded px-2 py-1">
@@ -56,9 +56,5 @@ const sortedExpenses = computed(() => {
         @deleted="handleExpenseDeleted"
       />
     </div>
-  </div>
-  <!-- Message when no expenses are found -->
-  <div v-if="!isLoading && expenses.length === 0" class="text-center">
-    <p class="text-gray-500 text-xl">No expenses found.</p>
   </div>
 </template>

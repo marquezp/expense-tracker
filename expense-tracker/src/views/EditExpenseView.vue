@@ -7,6 +7,7 @@ import { useToast } from "vue-toastification";
 
 const toast = useToast();
 const router = useRouter();
+const successEmojis = ["✏️", "📝", "🔄"];
 
 const route = useRoute();
 const expenseId = route.params.id;
@@ -63,10 +64,14 @@ const handleSubmit = async () => {
       .eq("user_id", userId);
     if (error) throw error;
     router.push("/expenses");
-    toast.success("Expense updated successfully!");
+    toast.success(
+      `Expense updated successfully ${
+        successEmojis[Math.floor(Math.random() * successEmojis.length)]
+      }`
+    );
   } catch (error) {
     console.error("Error updating expense:", error);
-    toast.error("Error updating expense.");
+    toast.error("Error updating expense 😵");
     form.isLoading = false;
   }
 };

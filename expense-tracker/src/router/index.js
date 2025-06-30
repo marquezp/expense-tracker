@@ -7,6 +7,7 @@ import AddExpenseView from "../views/AddExpenseView.vue";
 import EditExpenseView from "../views/EditExpenseView.vue";
 import LogInView from "../views/LogInView.vue";
 import RegisterView from "../views/RegisterView.vue";
+import MonthView from "../views/MonthView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,12 @@ const router = createRouter({
       name: "Home",
       component: HomeView,
     },
+    {
+      path: "/expenses/:year/:month",
+      name: "expenses-by-date",
+      component: MonthView,
+    },
+
     {
       path: "/expenses/add",
       name: "add-expense",

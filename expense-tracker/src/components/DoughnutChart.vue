@@ -9,9 +9,14 @@ const props = defineProps({
   labels: Array,
   data: Array,
   colors: Array,
+  month: Number,
+  year: Number,
 });
 
-const month = new Date().toLocaleString("default", { month: "long" });
+const month = new Date(Date.UTC(props.year, props.month, 1)).toLocaleString(
+  "default",
+  { month: "long" }
+);
 </script>
 
 <template>
@@ -38,7 +43,7 @@ const month = new Date().toLocaleString("default", { month: "long" });
                 type: 'doughnutLabel',
                 content: ({ chart }) => [
                   `$${chart.getDatasetMeta(0).total.toFixed(2)}`,
-                  `${month}`,
+                  `${month}, ${props.year}`,
                 ],
                 font: [{ size: 24 }, { size: 18 }],
                 color: ['#000', '#555'],
