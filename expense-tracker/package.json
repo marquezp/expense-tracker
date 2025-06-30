@@ -10,6 +10,7 @@
     "server": "json-server --watch src/expenses.json --port 5000"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.2.0",
     "@supabase/supabase-js": "^2.50.2",
     "@tailwindcss/vite": "^4.1.10",
     "axios": "^1.10.0",
@@ -22,7 +23,8 @@
     "vue": "^3.5.17",
     "vue-chartjs": "^5.3.2",
     "vue-router": "^4.5.1",
-    "vue-spinner": "^1.0.4"
+    "vue-spinner": "^1.0.4",
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",

@@ -3,7 +3,9 @@ import { reactive, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { supabase } from "../utils/supabase";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const router = useRouter();
 
 const route = useRoute();
@@ -13,9 +15,11 @@ const form = reactive({
   title: "",
   price: "",
   category: "",
+  description: "",
   isLoading: true,
 });
 
+// Function to handle an update of an expense
 const handleSubmit = async () => {
   // Get the current user
   const {
@@ -28,8 +32,10 @@ const handleSubmit = async () => {
     title: form.title,
     price: parseFloat(form.price),
     category: form.category,
+    description: form.description,
   };
 
+  // Check that required fields are filled out
   if (
     !updatedExpense.title ||
     !updatedExpense.price ||
@@ -38,31 +44,34 @@ const handleSubmit = async () => {
     console.error("All fields are required.");
     return;
   }
-
+  // Validate that price is a positive number
   if (isNaN(updatedExpense.price) || updatedExpense.price <= 0) {
     console.error("Price must be a positive number.");
     return;
   }
 
-  console.log(updatedExpense);
-  console.log("expenseId:", expenseId, "userId:", userId);
+  // console.log(updatedExpense);
+  // console.log("expenseId:", expenseId, "userId:", userId);
 
   // Send the updated expense to the API
   try {
+    form.isLoading = true;
     const { data, error } = await supabase
       .from("expenses")
       .update(updatedExpense)
       .eq("id", expenseId)
-      .eq("user_id", userId)
-      .select();
+      .eq("user_id", userId);
     if (error) throw error;
     router.push("/expenses");
-    console.log(data);
+    toast.success("Expense updated successfully!");
   } catch (error) {
     console.error("Error updating expense:", error);
+    toast.error("Error updating expense.");
+    form.isLoading = false;
   }
 };
 
+// When the component is mounted, fetch the expense data
 onMounted(async () => {
   try {
     // Get the current user
@@ -84,6 +93,7 @@ onMounted(async () => {
     form.title = data.title;
     form.price = data.price;
     form.category = data.category;
+    form.description = data.description;
   } catch (error) {
     console.error("Error fetching expense:", error);
   } finally {
@@ -142,6 +152,18 @@ onMounted(async () => {
           <option value="Travel">Travel</option>
           <option value="Other">Other</option>
         </select>
+      </div>
+      <div>
+        <label for="description" class="block text-sm font-medium text-gray-700"
+          >Description</label
+        >
+        <textarea
+          v-model="form.description"
+          id="description"
+          placeholder="Add an optional description..."
+          rows="3"
+          class="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 focus:ring-blue-500 focus:border-blue-500"
+        ></textarea>
       </div>
       <button
         type="submit"

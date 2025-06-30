@@ -37,7 +37,7 @@ const month = new Date().toLocaleString("default", { month: "long" });
               dLabel: {
                 type: 'doughnutLabel',
                 content: ({ chart }) => [
-                  `$${chart.getDatasetMeta(0).total}`,
+                  `$${chart.getDatasetMeta(0).total.toFixed(2)}`,
                   `${month}`,
                 ],
                 font: [{ size: 24 }, { size: 18 }],
