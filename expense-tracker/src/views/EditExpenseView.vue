@@ -17,6 +17,7 @@ const form = reactive({
   price: "",
   category: "",
   description: "",
+  isRecurring: false,
   isLoading: true,
 });
 
@@ -99,6 +100,7 @@ onMounted(async () => {
     form.price = data.price;
     form.category = data.category;
     form.description = data.description;
+    form.isRecurring = data.is_recurring || false;
   } catch (error) {
     console.error("Error fetching expense:", error);
   } finally {
@@ -113,6 +115,10 @@ onMounted(async () => {
     class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md"
   >
     <h2 class="text-2xl font-bold mb-4 text-center">Edit Expense</h2>
+    <p v-if="form.isRecurring" class="text-sm text-red-400 mb-4 text-center">
+      This is a recurring expense, please note that changes will apply to all
+      instances of the expense.
+    </p>
     <form @submit.prevent="handleSubmit">
       <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700"

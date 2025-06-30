@@ -15,6 +15,8 @@ const form = reactive({
   price: "",
   category: "",
   description: "",
+  is_recurring: false,
+  recurring_day: null,
   isLoading: false,
 });
 
@@ -32,6 +34,8 @@ const addExpense = async () => {
     category: form.category,
     description: form.description,
     user_id: userId,
+    is_recurring: form.is_recurring,
+    recurring_day: form.is_recurring ? form.recurring_day : null,
     created: new Date().toISOString(),
   };
 
@@ -129,6 +133,30 @@ const addExpense = async () => {
           rows="3"
           class="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 focus:ring-blue-500 focus:border-blue-500"
         ></textarea>
+      </div>
+      <div class="mb-4">
+        <label
+          class="flex items-center gap-2 mt-2 text-sm font-medium text-gray-700"
+        >
+          <input
+            type="checkbox"
+            v-model="form.is_recurring"
+            class="form-checkbox h-4 w-4 text-blue-600"
+          />
+          Recurring Expense
+        </label>
+        <div v-if="form.is_recurring" class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">
+            Day of month:
+            <input
+              type="number"
+              v-model="form.recurring_day"
+              min="1"
+              max="28"
+              class="ml-2 w-15 py-1 px-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </label>
+        </div>
       </div>
       <button
         type="submit"

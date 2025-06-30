@@ -61,7 +61,7 @@ const handleLogout = async () => {
         month-picker
         auto-apply
         class="text-xl ml-2 mt-0.5 cursor-pointer"
-        placeholder="View Past Months"
+        placeholder="View Other Months"
       />
     </div>
     <div>

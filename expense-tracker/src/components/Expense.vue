@@ -30,6 +30,13 @@ function getCategoryBg(category) {
 
 // API call to delete an expense
 const handleDelete = async () => {
+  if (props.expense.is_recurring) {
+    // If it's a recurring expense, show an alert or confirmation dialog
+    const confirmDelete = confirm(
+      "This is a recurring expense. Deleting it will remove all instances of this expense. Are you sure you want to delete it?"
+    );
+    if (!confirmDelete) return; // Exit if user cancels
+  }
   try {
     await supabase.from("expenses").delete().eq("id", props.expense.id);
     emit("deleted", props.expense.id); // Emit event after deletion
@@ -61,7 +68,7 @@ const handleDelete = async () => {
         </div>
       </RouterLink>
       <!-- Expense Date on the right -->
-      <span class="text-gray-500 text-sm ml-4">
+      <span v-if="!expense.is_recurring" class="text-gray-500 text-sm ml-4">
         {{
           (() => {
             // Parse UTC date string and display in user's local time zone
@@ -75,6 +82,12 @@ const handleDelete = async () => {
             });
           })()
         }}
+      </span>
+      <span v-else>
+        <p class="text-gray-500 text-sm ml-4">
+          <span class="font-semibold">Monthly Expense</span>
+          ({{ expense.recurring_day }}th)
+        </p>
       </span>
       <!-- Delete Button on the right -->
       <button
