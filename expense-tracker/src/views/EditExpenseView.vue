@@ -136,14 +136,21 @@ onMounted(async () => {
         <label for="price" class="block text-sm font-medium text-gray-700"
           >Price</label
         >
-        <input
-          v-model="form.price"
-          type="number"
-          step="0.01"
-          id="price"
-          required
-          class="mt-1 block w-full py-2 px-3 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-        />
+        <div class="relative mt-1">
+          <span
+            class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 text-base pointer-events-none"
+            >$
+          </span>
+          <input
+            v-model="form.price"
+            type="number"
+            step="0.01"
+            id="price"
+            required
+            min="0.01"
+            class="block w-full pl-8 pr-3 py-2 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
       </div>
       <div class="mb-4">
         <label for="category" class="block text-sm font-medium text-gray-700"

@@ -58,7 +58,7 @@ const handleLogout = async () => {
       Expense Tracker
     </RouterLink>
 
-    <!-- Desktop Menu (date picker only, does not fill space) -->
+    <!-- Desktop Menu -->
     <div class="hidden sm:flex items-center">
       <VueDatePicker
         v-if="isLoggedIn"

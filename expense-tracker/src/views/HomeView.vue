@@ -35,6 +35,29 @@ onMounted(async () => {
     .order("created", { ascending: false });
   if (!error) expenses.value = data;
   isLoading.value = false;
+
+  // Fetch recurring expenses
+  const { data: recurringData, error: recurringError } = await supabase
+    .from("expenses")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("is_recurring", true);
+
+  if (!recurringError) {
+    // Get IDs of already fetched expenses
+    const existingIds = new Set(expenses.value.map((e) => e.id));
+    // Only add recurring expenses that are not already in the list
+    const newRecurring = recurringData
+      .filter((recurringExpense) => !existingIds.has(recurringExpense.id))
+      .map((recurringExpense) => ({
+        ...recurringExpense,
+        created: new Date(
+          Date.UTC(year, month - 1, recurringExpense.recurring_day, 0, 0, 0)
+        ).toISOString(),
+      }));
+    expenses.value.push(...newRecurring);
+    isLoading.value = false;
+  }
 });
 
 // When an expense is deleted, update the array
