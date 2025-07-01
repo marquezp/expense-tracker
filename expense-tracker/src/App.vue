@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar.vue";
 </script>
 
 <template>
-  <div class="min-h-screen bg-orange-50">
+  <div class="min-h-screen bg-gray-50">
     <Navbar />
     <!-- :key="$route.fullPath" ensures reactivity on route parameter changes -->
     <RouterView :key="$route.fullPath" />

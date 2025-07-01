@@ -2,7 +2,11 @@
 import { ref } from "vue";
 import { supabase } from "../utils/supabase";
 import { RouterLink } from "vue-router";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/vue/24/outline";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  XCircleIcon,
+} from "@heroicons/vue/24/outline";
 
 const emit = defineEmits(["deleted"]);
 
@@ -93,9 +97,9 @@ const handleDelete = async () => {
       <button
         type="button"
         @click.stop="handleDelete"
-        class="bg-red-400 text-white rounded px-4 py-2 hover:bg-red-500 cursor-pointer ml-4"
+        class="text-slate-400 rounded px-2 py-2 cursor-pointer ml-4 hover:text-red-500 transition-colors duration-200"
       >
-        Delete
+        <XCircleIcon class="w-6 h-6" />
       </button>
     </div>
 
@@ -114,10 +118,10 @@ const handleDelete = async () => {
       <!-- Description Content with Transition -->
       <div
         v-if="showDescription"
-        class="transition-all duration-300 ease-in-out opacity-100 max-h-40"
+        class="transition-all duration-300 ease-in-out opacity-100"
       >
         <!-- Expense Description Text -->
-        <p class="text-gray-600 text-center mb-2 mt-2">
+        <p class="text-gray-600 mb-2 mt-2 break-words">
           {{ expense.description }}
         </p>
         <!-- Hide Dropdown Arrow when Description is Visible -->

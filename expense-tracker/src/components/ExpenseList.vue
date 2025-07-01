@@ -37,18 +37,22 @@ const sortedExpenses = computed(() => {
   <!-- Loading spinner-->
   <div v-if="isLoading" class="text-center mt-18"><PulseLoader /></div>
 
-  <!-- Sort Controls -->
-  <div v-else-if="expenses.length > 0">
-    <div class="mb-4 flex gap-2 items-center">
-      <label for="sort" class="text-sm font-medium">Sort by:</label>
-      <select v-model="sortBy" id="sort" class="border rounded px-2 py-1">
+  <div v-else-if="expenses.length > 0" class="mt-2">
+    <!-- Sort Controls -->
+    <div class="mb-4 flex gap-2 items-center justify-center">
+      <select
+        v-model="sortBy"
+        id="sort"
+        class="border-1 rounded px-1 py-1 focus:outline-none"
+      >
+        <option value="date" disabled selected>Sort by</option>
         <option value="date">Date</option>
         <option value="amount">Amount</option>
         <option value="category">Category</option>
       </select>
     </div>
     <!-- Display the list of expenses when done loading-->
-    <div>
+    <div class="mx-4 sm:mx-0">
       <Expense
         v-for="expense in sortedExpenses"
         :key="expense.id"

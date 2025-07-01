@@ -70,7 +70,7 @@ function handleExpenseDeleted(expenseId) {
 
 <template>
   <div class="flex flex-col items-center mt-10">
-    <h1 v-if="expenses.length" class="text-xl mb-4">
+    <h1 v-if="expenses.length" class="text-lg text-center mb-4 mx-4">
       Here's a breakdown of that month's expenses...
     </h1>
     <TotalExpenses
